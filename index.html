@@ -81,7 +81,7 @@ body {
   background: rgba(239,68,68,0.2);
   box-shadow: 0 0 12px rgba(239,68,68,0.3);
 }
-.header-right { display: flex; align-items: center; gap: 8px; }
+.header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .theme-btn {
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: 8px; width: 36px; height: 36px;
@@ -245,7 +245,9 @@ body {
 }
 .end strong { color: var(--accent); }
 @media (max-width: 640px) {
-  .header { padding: 12px 14px; }
+  .header { padding: 10px 12px; }
+  .header-left { gap: 6px; }
+  .header-right { gap: 4px; }
   .header h1 { font-size: 16px; }
   .main { padding: 10px 8px 30px; max-width: 100%; }
   .intro { padding: 16px 0 10px; }
@@ -276,9 +278,9 @@ body {
   <div class="header-left">
     <h1>🐶 Zé Pequeno e Sua Turma</h1>
     <span class="badge">Livro/Diário de Bordo/blog</span>
-    <a href="#data-2026-06-20" class="badge-new" id="newBadge" style="display:none">✨ Novas</a>
   </div>
   <div class="header-right">
+    <a href="#data-2026-06-20" class="badge-new" id="newBadge" style="display:none">✨ Novas</a>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
 </header>
