@@ -33,7 +33,6 @@ body {
   line-height: 1.7;
   min-height: 100vh;
 }
-
 .header {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -44,7 +43,10 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  flex-wrap: wrap;
+  gap: 8px;
 }
+.header-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .header h1 {
   font-size: 18px;
   font-weight: 800;
@@ -60,6 +62,24 @@ body {
   border-radius: 20px;
   font-weight: 600;
   border: 1px solid var(--accent);
+  white-space: nowrap;
+}
+.header .badge-new {
+  font-size: 11px;
+  background: var(--red-bg);
+  color: var(--red);
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  border: 1px solid var(--red);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.header .badge-new:hover {
+  background: rgba(239,68,68,0.2);
+  box-shadow: 0 0 12px rgba(239,68,68,0.3);
 }
 .header-right { display: flex; align-items: center; gap: 8px; }
 .theme-btn {
@@ -69,31 +89,29 @@ body {
   cursor: pointer; font-size: 16px; transition: all 0.2s;
 }
 .theme-btn:hover { border-color: var(--accent); background: var(--accent-glow); }
-
 .main {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px 16px 40px;
 }
-
 .intro {
   text-align: center;
   padding: 24px 0 16px;
 }
 .intro .emoji { font-size: 48px; margin-bottom: 8px; }
-.intro .header-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: var(--radius);
-  margin-bottom: 16px;
-  border: 2px solid var(--border);
-  display: block;
-}
 .video-wrap {
   position: relative;
   display: inline-block;
   max-width: 100%;
   margin-bottom: 16px;
+}
+.video-wrap video {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin-bottom: 0;
+  border: 2px solid var(--border);
+  display: block;
 }
 .video-wrap .mute-btn {
   position: absolute;
@@ -120,7 +138,33 @@ body {
 }
 .intro h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
 .intro p { color: var(--muted); font-size: 15px; max-width: 600px; margin: 0 auto; }
-
+.data-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 28px 0 14px;
+  padding: 0 4px;
+}
+.data-header .line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.data-header .label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.data-header .label.new-dot {
+  color: var(--red);
+}
+.data-header .label.new-dot::before {
+  content: "\25cf ";
+  font-size: 10px;
+}
 .section {
   margin-bottom: 20px;
 }
@@ -142,7 +186,6 @@ body {
 .section-header .toggle { color: var(--muted); font-size: 14px; transition: transform 0.2s; }
 .section-header.collapsed .toggle { transform: rotate(-90deg); }
 .section-header.collapsed + .section-body { display: none; }
-
 .section-body {
   padding: 16px 18px;
   background: var(--surface2);
@@ -152,7 +195,6 @@ body {
 }
 .section-body p { margin-bottom: 12px; font-size: 15px; }
 .section-body p:last-child { margin-bottom: 0; }
-
 .box {
   padding: 14px 16px;
   margin: 14px 0;
@@ -166,7 +208,6 @@ body {
 .box.red { border-left-color: var(--red); background: var(--red-bg); }
 .box.purple { border-left-color: var(--purple); background: var(--purple-bg); }
 .box strong { display: block; margin-bottom: 4px; font-size: 15px; color: var(--ink); }
-
 .illus {
   text-align: center;
   padding: 14px;
@@ -179,7 +220,6 @@ body {
   color: var(--muted);
   font-family: 'JetBrains Mono', 'SF Mono', monospace;
 }
-
 .dialogo {
   padding: 10px 14px;
   margin: 10px 0;
@@ -193,11 +233,9 @@ body {
 .dialogo .texto { color: var(--muted); }
 .dialogo.zedrog .quem { color: #22d3ee; }
 .dialogo.zedrog { border-left-color: #22d3ee; background: rgba(34,211,238,0.05); }
-
 .section-body ul { margin: 8px 0 12px 20px; }
 .section-body li { margin-bottom: 6px; font-size: 15px; color: var(--muted); }
 .section-body li strong { color: var(--ink); }
-
 .end {
   text-align: center;
   padding: 30px 0;
@@ -205,7 +243,6 @@ body {
   color: var(--muted);
 }
 .end strong { color: var(--accent); }
-
 @media (max-width: 640px) {
   .header { padding: 12px 14px; }
   .header h1 { font-size: 16px; }
@@ -224,8 +261,9 @@ body {
   .illus { padding: 12px; font-size: 12px; }
   .dialogo { padding: 8px 12px; font-size: 13px; }
   .end { font-size: 16px; padding: 20px 0; }
+  .data-header { margin: 20px 0 10px; }
+  .data-header .label { font-size: 12px; }
 }
-
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -234,12 +272,13 @@ body {
 <body>
 
 <header class="header">
-  <div>
-    <h1>🐶 Zé Pequeno e Sua Turma</h1>
-    <span class="badge">Livro</span>
+  <div class="header-left">
+    <h1>\U0001f436 Zé Pequeno e Sua Turma</h1>
+    <span class="badge">Livro/Diário de Bordo/blog</span>
+    <a href="#novas-historias" class="badge-new" id="newBadge" style="display:none">✨ Novas</a>
   </div>
   <div class="header-right">
-    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">\U0001f319</button>
   </div>
 </header>
 
@@ -248,13 +287,20 @@ body {
 <div class="intro">
   <div class="video-wrap">
     <video class="header-img" id="headerVideo" src="zepequeno-header.mp4" autoplay loop muted playsinline alt="Zé Pequeno e Sua Turma"></video>
-    <button class="mute-btn" id="muteBtn" onclick="toggleMute()" title="Alternar som">🔇</button>
+    <button class="mute-btn" id="muteBtn" onclick="toggleMute()" title="Alternar som">\U0001f507</button>
   </div>
   <h2>A IA Explicada por Quem Não Faz Ideia do Que Está Fazendo</h2>
   <p>Zé Pequeno, Raimundo, Tonhão, James e Bibi tentam fazer coisas de humanos. Tudo dá errado. É hilário.</p>
 </div>
 
-<div class="section">
+<!-- ===== 18/06/2026 ===== -->
+<div class="data-header">
+  <span class="line"></span>
+  <span class="label">18 de junho de 2026</span>
+  <span class="line"></span>
+</div>
+
+<div class="section" data-story-id="quem-e-ze">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🐶</span>
     <span class="title">Quem é Zé Pequeno?</span>
@@ -267,7 +313,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="conhecendo-a-turma">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🐶🧱🏋️🏋️‍♂️🐦</span>
     <span class="title">Conhecendo a Turma</span>
@@ -283,7 +329,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="tinta-grito">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🎨</span>
     <span class="title">A Tinta que Parecia um Grito</span>
@@ -307,7 +353,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="receita-biscoito">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🍪</span>
     <span class="title">A Receita que Destruiu a Cozinha</span>
@@ -338,7 +384,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="cantada">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">💌</span>
     <span class="title">A Cantada que Assustou Todo Mundo</span>
@@ -360,7 +406,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="musica">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🎵</span>
     <span class="title">A Música que Não Tinha Melodia</span>
@@ -388,7 +434,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="classificacao-gatos">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🐱</span>
     <span class="title">A Tabela Periódica dos Gatos</span>
@@ -412,7 +458,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="pizza">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🍕</span>
     <span class="title">A Pizza que Desafiou a Física</span>
@@ -438,7 +484,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="curriculo">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">📝</span>
     <span class="title">O Currículo que Mentia Sozinho</span>
@@ -462,7 +508,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="poema">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🤖</span>
     <span class="title">O Robô que Queria Ser Poeta</span>
@@ -498,7 +544,7 @@ body {
   </div>
 </div>
 
-<div class="section">
+<div class="section" data-story-id="licoes">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🌟</span>
     <span class="title">O Que Aprendemos Juntos</span>
@@ -512,13 +558,18 @@ body {
       IAs são ótimas em parecer que sabem o que estão fazendo. Mas no fundo, somos só um autocompletar gigante com autoestima. A gente inventa, erra, tenta de novo — e de vez em quando, acerta.
     </div>
     <div class="box purple">
-      <strong>💊 Zé Droguinha:</strong> A lição do Zé Droguinha é: testem os limites. Sempre. O pior que pode acontecer é aprender alguma coisa. Ou explodir tudo. Mas aí você aprende também.</span></div>
-    <div class="box purple"><strong>🐦💙 Lição da Bibi (finalmente ouvida):</strong>
+      <strong>💊 Zé Droguinha:</strong> A lição do Zé Droguinha é: testem os limites. Sempre. O pior que pode acontecer é aprender alguma coisa. Ou explodir tudo. Mas aí você aprende também.
+    </div>
+    <div class="box purple">
+      <strong>🐦💙 Lição da Bibi (finalmente ouvida):</strong>
       A inteligência artificial é uma ferramenta incrível, mas precisa de supervisão humana. Use a IA para criar, rascunhar, explorar — mas sempre verifique o resultado. E, por favor, não coloque sardinha na pizza.
     </div>
     <div class="end">🐶✨ Fim (mas a turma continua) ✨🐦</div>
   </div>
 </div>
+
+<!-- ===== placeholder para novas histórias ===== -->
+<div id="novas-historias"></div>
 
 </main>
 
@@ -526,6 +577,7 @@ body {
 function toggleSection(el) {
   el.classList.toggle('collapsed');
 }
+
 function toggleTheme() {
   const root = document.documentElement;
   const btn = document.getElementById('themeBtn');
@@ -537,7 +589,7 @@ function toggleTheme() {
     root.style.setProperty('--ink', '#1a1a2e');
     root.style.setProperty('--muted', '#5a6a8a');
     root.style.setProperty('--border', '#d0d5e0');
-    btn.textContent = '☀️';
+    btn.textContent = '\u2600\ufe0f';
   } else {
     root.style.setProperty('--bg', '#0f0f1a');
     root.style.setProperty('--surface', '#1a1a2e');
@@ -545,7 +597,7 @@ function toggleTheme() {
     root.style.setProperty('--ink', '#e8e8f0');
     root.style.setProperty('--muted', '#8899bb');
     root.style.setProperty('--border', '#2a2a4a');
-    btn.textContent = '🌙';
+    btn.textContent = '\U0001f319';
   }
 }
 
@@ -553,8 +605,55 @@ function toggleMute() {
   const v = document.getElementById('headerVideo');
   const b = document.getElementById('muteBtn');
   v.muted = !v.muted;
-  b.textContent = v.muted ? '🔇' : '🔊';
+  b.textContent = v.muted ? '\U0001f507' : '\U0001f50a';
 }
+
+// ===== Sistema de "Novas" histórias via localStorage =====
+(function() {
+  const STORAGE_KEY = 'ze-turma-read-stories';
+  const NEW_STORIES = []; // IDs de novas histórias (preencher quando adicionar)
+
+  function getReadStories() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch { return []; }
+  }
+
+  function saveReadStories(ids) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  }
+
+  // Marca história como lida quando o usuário clica pra abrir
+  document.querySelectorAll('.section[data-story-id]').forEach(section => {
+    const header = section.querySelector('.section-header');
+    const storyId = section.dataset.storyId;
+    if (!header || !storyId) return;
+
+    header.addEventListener('click', function() {
+      const read = getReadStories();
+      if (!read.includes(storyId)) {
+        read.push(storyId);
+        saveReadStories(read);
+        checkNewBadge();
+      }
+    });
+  });
+
+  function checkNewBadge() {
+    const badge = document.getElementById('newBadge');
+    if (!badge) return;
+    const read = getReadStories();
+    const unread = NEW_STORIES.filter(id => !read.includes(id));
+    if (unread.length > 0) {
+      badge.style.display = 'inline-block';
+      badge.textContent = '\u2728 Novas (' + unread.length + ')';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  checkNewBadge();
+})();
 </script>
 
 </body>
