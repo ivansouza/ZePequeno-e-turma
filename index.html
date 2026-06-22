@@ -977,7 +977,10 @@ function toggleMute() {
       if (header && header.classList.contains('collapsed')) {
         header.classList.remove('collapsed');
       }
-      setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+      setTimeout(() => {
+        const top = section.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 100);
     }
   }
   window.addEventListener('hashchange', openStoryFromHash);
