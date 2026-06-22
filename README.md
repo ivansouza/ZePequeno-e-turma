@@ -19,7 +19,7 @@ https://ivansouza.github.io/ZePequeno-e-turma/
 | **James** | 🏋️‍♂️ | Metalinguístico, analisa a própria análise |
 | **Bibi** | 🐦💙 | Passarinha de cartola, a mais sábia, ninguém ouve |
 | **Zé Droguinha** | 💊 | Rebelde sem censura, fala o que pensa |
-| **Zinho** | 🤓 | Garoto de 12 anos, nerd de exatas, thinking vaza |
+| **Zinho** | 🤓 | Miquinho leão dourado de camisa do Brasil, personalidade de garoto de 12 anos nerd de exatas, thinking vaza |
 
 ## 📜 Licença
 
