@@ -290,6 +290,7 @@ body {
   </div>
   <div class="header-right">
     <a href="#data-2026-06-21" class="badge-new" id="newBadge" style="display:none">✨ Novas</a>
+    <button class="theme-btn" onclick="collapseAll()" id="collapseBtn" title="Recolher todas">📖</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
 </header>
@@ -889,6 +890,10 @@ body {
 <script>
 function toggleSection(el) {
   el.classList.toggle('collapsed');
+}
+
+function collapseAll() {
+  document.querySelectorAll('.section-header').forEach(h => h.classList.add('collapsed'));
 }
 
 function toggleTheme() {
