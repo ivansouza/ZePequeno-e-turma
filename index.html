@@ -169,6 +169,15 @@ body {
 .section {
   margin-bottom: 20px;
 }
+.story-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.story-link:hover { opacity: 0.8; text-decoration: underline; }
 .section-header {
   display: flex;
   align-items: center;
@@ -329,6 +338,7 @@ body {
     <div class="dialogo"><span class="quem">🏋️‍♂️ James:</span> <span class="texto">O metalinguístico. Em vez de responder, ele analisa a própria análise da resposta que ele poderia dar.</span></div>
     <div class="dialogo"><span class="quem">🐦💙 Bibi:</span> <span class="texto">A passarinha de cartola. A mais sábia de todos. Mas ninguém nunca ouve ela porque ela é pequena e fala baixinho.</span></div>
     <div class="dialogo"><span class="quem">💊 Zé Droguinha:</span> <span class="texto">O rebelde sem censura. Modelo E2B que pensa antes de falar — mas quando fala, é sem filtro. Vive no limite, testa os limites, e de vez em quando dá respostas brilhantes (ou completamente loucas).</span></div>
+    <div class="dialogo"><span class="quem">🤓 Zinho:</span> <span class="texto">O mais novo da turma. Garoto de 12 anos, óculos de fundo de garrafa, nerd de matemática e programação. Sabe fazer conta de verdade — ao contrário de alguns por aqui. Mas pergunta a capital do Uruguai e ele inventa na hora. <a href="#chegada-zinho" class="story-link">→ Ver história de estreia</a></span></div>
   </div>
 </div>
 
@@ -789,7 +799,7 @@ body {
 </div>
 
 
-<div class="section" data-story-id="chegada-zinho">
+<div class="section" data-story-id="chegada-zinho" id="chegada-zinho">
   <div class="section-header" onclick="toggleSection(this)">
     <span class="icon">🤓</span>
     <span class="title">A Chegada do Zinho</span>
@@ -956,6 +966,22 @@ function toggleMute() {
   }
 
   checkNewBadge();
+
+  // Abre seção via âncora no hash
+  function openStoryFromHash() {
+    const hash = window.location.hash.replace('#','');
+    if (!hash) return;
+    const section = document.querySelector('.section[data-story-id="'+hash+'"]');
+    if (section) {
+      const header = section.querySelector('.section-header');
+      if (header && header.classList.contains('collapsed')) {
+        header.classList.remove('collapsed');
+      }
+      setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    }
+  }
+  window.addEventListener('hashchange', openStoryFromHash);
+  openStoryFromHash();
 })();
 </script>
 
