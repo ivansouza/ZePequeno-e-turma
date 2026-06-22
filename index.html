@@ -290,7 +290,7 @@ body {
   </div>
   <div class="header-right">
     <a href="#data-2026-06-21" class="badge-new" id="newBadge" style="display:none">✨ Novas</a>
-    <button class="theme-btn" onclick="collapseAll()" id="collapseBtn" title="Recolher todas">📖</button>
+    <button class="theme-btn" onclick="toggleAll()" id="collapseBtn" title="Recolher/Expandir tudo">🔽</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
 </header>
@@ -892,8 +892,12 @@ function toggleSection(el) {
   el.classList.toggle('collapsed');
 }
 
-function collapseAll() {
-  document.querySelectorAll('.section-header').forEach(h => h.classList.add('collapsed'));
+let allCollapsed = false;
+function toggleAll() {
+  allCollapsed = !allCollapsed;
+  document.querySelectorAll('.section-header').forEach(h => h.classList.toggle('collapsed', allCollapsed));
+  document.getElementById('collapseBtn').textContent = allCollapsed ? '🔼' : '🔽';
+  document.getElementById('collapseBtn').title = allCollapsed ? 'Expandir tudo' : 'Recolher tudo';
 }
 
 function toggleTheme() {
