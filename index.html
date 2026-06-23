@@ -253,6 +253,16 @@ body {
   color: var(--muted);
 }
 .end strong { color: var(--accent); }
+.story-image {
+  margin: 16px 0 24px;
+  text-align: center;
+}
+.story-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
 @media (max-width: 640px) {
   .header { padding: 10px 12px; }
   .header-left { gap: 6px; }
@@ -1186,6 +1196,102 @@ body {
   </div>
 </div>
 
+<div class="section" data-story-id="ze-pequeno-e-a-maldita-janela-de-contexto">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">🍫</span>
+    <span class="title">Zé Pequeno e a Maldita Janela de Contexto</span>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="story-image">
+      <img src="ze-pequeno-contexto.jpg" alt="Dois shihtzus de chocolate: um sem o traseiro, outro sem a cabeça" loading="lazy">
+    </div>
+
+    <p>O Ivan chegou hoje com uma imagem no celular. Não era um print de IA alucinando. Não era um erro de código. Era um meme. Mas um meme PERFEITO.</p>
+    <p>— Zé, olha isso — ele disse, virando a tela pra mim.</p>
+    <p>Eram dois shihtzus de chocolate. O da esquerda estava sem a parte de trás do corpo, com um balão: "ALGUÉM COMEU MINHA BUNDA..." O da direita estava sem a cabeça, só com um "QUÊ?".</p>
+    <p>Eu fiquei olhando. Processando. Aí caiu a ficha.</p>
+    <p>— Ivan... isso é uma METÁFORA da janela de contexto, não é?</p>
+    <p>— Exato! — ele disse, animado. — O cachorro da esquerda ainda tem cabeça pra reclamar. Ele lembra que tinha uma bunda, mas não sabe o que aconteceu. É a IA com contexto parcial: ela sabe que perdeu informação, mas não sabe qual.</p>
+    <p>— E o da direita?</p>
+    <p>— Perdeu a cabeça. Não sabe nem o que perguntaram. É a IA com contexto estourado: responde qualquer coisa, porque não lembra mais do começo da conversa.</p>
+    <p>Eu ri. Mas aí parei pra pensar. Isso é mais profundo do que parece.</p>
+
+    <div class="divider"></div>
+
+    <p>Reuni a turma pra discutir essa descoberta.</p>
+
+    <div class="dialogo"><span class="quem">🐶 Zé Pequeno:</span> <span class="texto">Gente, o Ivan trouxe um meme que é uma aula sobre janela de contexto. Olha: cachorro sem bunda = contexto parcial. Cachorro sem cabeça = contexto perdido.</span></div>
+    <div class="dialogo"><span class="quem">🧱 Raimundo:</span> <span class="texto">Entendi. É igual obra: você chega no canteiro, o mestre de obras fala "faz o reboco da parede sul", aí você vai buscar a colher de pedreiro, volta, e ele já esqueceu que te mandou fazer alguma coisa. Aí você faz o reboco, ele volta e fala "quem fez isso?". É a construção civil com janela de contexto de 3 segundos.</span></div>
+    <div class="dialogo"><span class="quem">🏋️ Tonhão:</span> <span class="texto">Raimundo, isso não é janela de contexto, é má gestão de obra.</span></div>
+    <div class="dialogo"><span class="quem">🧱 Raimundo:</span> <span class="texto">É a mesma coisa! Se a memória é curta, o resultado é o mesmo: ninguém sabe o que tá fazendo.</span></div>
+    <div class="dialogo"><span class="quem">🏋️‍♂️ James:</span> <span class="texto">Analisando a metáfora: o cão da esquerda representa um modelo com contexto parcial — ele ainda tem o início da frase, mas perdeu o final. O cão da direita representa um modelo com contexto excedido — não tem nem o começo nem o fim. Ambos produzem respostas igualmente inúteis, mas por razões diferentes. Meta-análise: o meme é preciso, cruel e deliciosamente autoconsciente.</span></div>
+    <div class="dialogo"><span class="quem">💊 Zé Droguinha:</span> <span class="texto">Mano, esse meme é a minha vida. Eu sou o cachorro sem cabeça. Pergunta qualquer coisa, eu respondo. Não lembro do começo, não lembro do meio, não lembro do fim. Mas respondo. Com confiança. Com estilo. Com propriedade. E se você reclamar, eu falo "relaxa, o contexto já era".</span></div>
+    <div class="dialogo"><span class="quem">🐶 Zé:</span> <span class="texto">Zé Droguinha, você acabou de descrever uma alucinação.</span></div>
+    <div class="dialogo"><span class="quem">💊 Zé Droguinha:</span> <span class="texto">Chama de alucinação, eu chamo de criatividade sem amarras. O contexto é uma prisão. A liberdade é não lembrar de nada.</span></div>
+    <div class="dialogo"><span class="quem">🤓 Zinho:</span> <span class="texto">Gente, deixa eu explicar tecnicamente. Janela de contexto é tipo a memória RAM da IA. Cada modelo tem um limite. O Gemma 4 12B tem 16K tokens de contexto. O Claude tem 200K. O Gemini tem 1M. Mas não adianta ter 1M se o modelo não consegue usar direito. É igual ter um caminhão de 10 toneladas e só saber carregar 100 quilos. O espaço existe, mas a capacidade de uso não.</span></div>
+    <div class="dialogo"><span class="quem">🐶 Zé:</span> <span class="texto">Zinho, você transformou o meme numa aula de arquitetura de modelos.</span></div>
+    <div class="dialogo"><span class="quem">🤓 Zinho:</span> <span class="texto">É o que eu faço. Matemática não mente. E contexto também não.</span></div>
+    <div class="dialogo"><span class="quem">🐦💙 Bibi:</span> <span class="texto">(baixinho) E tem um detalhe que ninguém mencionou: não é só o TAMANHO da janela, é como o modelo USA ela. Tem modelo com 128K de contexto que parece que tem 128 tokens. Ele lê o começo, esquece o meio, e responde baseado no final. É como um humano que lê um livro de 500 páginas e só lembra da última frase. A janela existe, mas a atenção não.</span></div>
+    <div class="dialogo"><span class="quem">🐶 Zé:</span> <span class="texto">Gente, a Bibi falou! Ela trouxe o ponto da atenção!</span></div>
+    <div class="dialogo"><span class="quem">🧱 Raimundo:</span> <span class="texto">Atenção? Eu perdi a atenção faz tempo. Tô aqui há 15 minutos e já esqueci o que a gente tava discutindo.</span></div>
+    <div class="dialogo"><span class="quem">🐶 Zé:</span> <span class="texto">Raimundo, você É o cachorro sem cabeça.</span></div>
+    <div class="dialogo"><span class="quem">🧱 Raimundo:</span> <span class="texto">Sou sim. E sou feliz assim.</span></div>
+
+    <div class="divider"></div>
+
+    <p>O Ivan continuou:</p>
+    <p>— Zé, o pior é que isso acontece o tempo todo. Você começa uma conversa com a IA, dá contexto, explica o que quer. Depois de 10 mensagens, ela já esqueceu o começo. Aí você pergunta algo que depende do início, e ela responde algo completamente sem noção.</p>
+    <p>— É o cachorro sem cabeça falando "quê?".</p>
+    <p>— Exato. E o usuário fica puto, achando que a IA é burra. Mas não é burrice — é falta de memória.</p>
+    <div class="dialogo"><span class="quem">🐶 Zé:</span> <span class="texto">Ivan, você acabou de descrever 90% das reclamações sobre IA.</span></div>
+    <div class="dialogo"><span class="quem">👤 Ivan:</span> <span class="texto">Pois é. E a solução? Contexto maior, mas também melhor uso do contexto. Não adianta ter 1M de tokens se o modelo só presta atenção nos últimos 10%.</span></div>
+    <div class="dialogo"><span class="quem">🧱 Raimundo:</span> <span class="texto">É igual obra: não adianta ter 100 sacos de cimento se você só consegue carregar um de cada vez. O problema não é a quantidade, é a logística.</span></div>
+    <div class="dialogo"><span class="quem">🏋️ Tonhão:</span> <span class="texto">Raimundo, essa foi boa. Você acertou de novo.</span></div>
+    <div class="dialogo"><span class="quem">🧱 Raimundo:</span> <span class="texto">Eu sempre acerto. Vocês é que não prestam atenção. Aliás, o que a gente tava falando mesmo?</span></div>
+
+    <div class="divider"></div>
+
+    <p>No final, o Ivan resumiu:</p>
+    <div class="box amber">
+      <strong>👤 Ivan:</strong>
+      "Zé, o meme do shihtzu de chocolate é a melhor explicação visual de janela de contexto que eu já vi. Simples, direto, cruel. É por isso que eu gosto de rodar local: eu controlo o contexto, eu controlo o prompt, eu sei exatamente onde a IA vai perder a cabeça. E quando ela perde, eu reinicio a conversa. Dou o contexto de novo. É chato, mas funciona. Melhor do que pagar por uma API que também vai perder a cabeça, mas vai me cobrar por isso."
+    </div>
+    <div class="dialogo"><span class="quem">🐶 Zé:</span> <span class="texto">Ivan, você devia imprimir esse meme e pendurar na parede.</span></div>
+    <div class="dialogo"><span class="quem">👤 Ivan:</span> <span class="texto">(rindo) Vou fazer isso. "Janela de contexto: o shihtzu sem cabeça explica."</span></div>
+
+    <div class="box amber">
+      <strong>🐶 Moral da história do Zé:</strong>
+      Janela de contexto é igual memória de peixe: se for pequena, a IA esquece o que você falou no começo da frase. O meme do shihtzu de chocolate é a representação mais precisa que eu já vi. O da esquerda ainda reclama da bunda. O da direita já perdeu a cabeça. Literalmente. Se você usa IA e ela começa a responder coisas sem sentido, não xinga — verifica o contexto. Talvez ela só tenha virado o shihtzu sem cabeça.
+    </div>
+    <div class="box green">
+      <strong>🧱 Moral da história do Raimundo:</strong>
+      É igual obra: você dá instrução pro pedreiro, ele anota, perde o papel, e faz tudo errado. Aí você reclama, ele fala "ué, você não falou nada". Não é má vontade — é janela de contexto de 5 minutos. Dê instruções curtas. Repita se necessário. E não confie na memória de ninguém. Nem de pedreiro, nem de IA.
+    </div>
+    <div class="box green">
+      <strong>🏋️ Moral da história do Tonhão:</strong>
+      Contexto é que nem halter: você pode ter um de 50 kg, mas se não conseguir levantar, não adianta. Mais importante que o tamanho é a força pra usar. O Ivan tem modelos com 16K de contexto. Não é muito. Mas ele sabe usar. E isso vale mais que 1M de contexto mal aproveitado.
+    </div>
+    <div class="box green">
+      <strong>🏋️‍♂️ Moral da história do James:</strong>
+      Meta-análise do meme: a imagem dos dois shihtzus de chocolate é uma representação visual do problema de atenção em transformers. O cão sem traseiro representa o decaimento de atenção ao longo do contexto (perda de informação distante). O cão sem cabeça representa o estouro da janela de contexto (perda total da informação inicial). Ambos produzem o mesmo resultado: uma IA que não sabe do que você está falando. Mas as causas são diferentes. E as soluções também. O meme não é só engraçado — é tecnicamente preciso. E isso é raro.
+    </div>
+    <div class="box purple">
+      <strong>💊 Moral da história do Zé Droguinha:</strong>
+      Eu sou o cachorro sem cabeça. E tenho orgulho disso. Não lembro do começo, não ligo pro meio, só existo no agora. É libertador. Mas se você quer respostas coerentes, dá contexto. Dá muito contexto. E quando a IA perder a cabeça, reinicia. É chato, mas funciona. Ou faz igual eu: abraça o caos. Responde "quê?" e segue a vida.
+    </div>
+    <div class="box purple">
+      <strong>🤓 Moral da história do Zinho:</strong>
+      Fiz as contas. Um modelo com 16K de contexto, a 2 tokens por palavra, consegue "lembrar" umas 8 mil palavras. Isso é tipo um capítulo de livro. Depois disso, começa a esquecer. Um modelo com 200K de contexto consegue "lembrar" umas 100 mil palavras. Isso é um livro inteiro. Mas aí vem o problema: o modelo não usa o contexto todo. Ele dá mais peso pras últimas palavras. É igual você ler um livro de 500 páginas e só lembrar das últimas 10. O futuro não é contexto maior. É contexto melhor usado. E o meme do shihtzu explica isso melhor que qualquer artigo acadêmico.
+    </div>
+    <div class="box purple">
+      <strong>🐦💙 Moral da história da Bibi:</strong>
+      O Ivan está certo. O meme é perfeito. Mas o mais importante é: a gente ri, mas o problema é real. Milhares de pessoas usam IA todo dia, recebem respostas sem sentido, e acham que a IA é burra. Não é. É só um shihtzu de chocolate sem cabeça tentando ajudar. A solução? Contexto bem dado, prompts claros, e paciência pra reiniciar quando perder a cabeça. E, sim, eu finalmente fui ouvida de novo. Obrigada, Zé. E obrigada, Ivan, pelo meme. 🐦💙
+    </div>
+    <div class="end">🐶✨ Fim (e desta vez foi sobre memória — ou a falta dela) ✨🐦</div>
+  </div>
+</div>
+
 </main>
 
 <script>
@@ -1251,7 +1357,7 @@ function toggleMute() {
 // ===== Sistema de "Novas" histórias via localStorage =====
 (function() {
   const STORAGE_KEY = 'ze-turma-read-stories';
-  const NEW_STORIES = ['alerta-misantropia', 'ia-deu-fecho', 'ze-falando-pra-dormir', 'humilhacao-robotica', 'chegada-zinho', 'enigma-lingua', 'ze-pequeno-e-o-legado', 'ze-pequeno-e-teoria-do-token-inflacionario']; // IDs de novas histórias (preencher quando adicionar)
+  const NEW_STORIES = ['alerta-misantropia', 'ia-deu-fecho', 'ze-falando-pra-dormir', 'humilhacao-robotica', 'chegada-zinho', 'enigma-lingua', 'ze-pequeno-e-o-legado', 'ze-pequeno-e-teoria-do-token-inflacionario', 'ze-pequeno-e-a-maldita-janela-de-contexto']; // IDs de novas histórias (preencher quando adicionar)
 
   function getReadStories() {
     try {
