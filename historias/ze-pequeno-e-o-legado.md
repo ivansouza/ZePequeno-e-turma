@@ -70,15 +70,11 @@ Decidi que a gente precisava entender melhor essa história de plantar árvore. 
 
 👤 **Ivan:** E tem também umas palmeiras que plantei há uns anos, logo quando mudei pra cá. Estão enormes.
 
-🐶 **Zé:** E o ipê? Aquele que floresce rosa e parece que tá pegando fogo de tão linda?
-
-👤 **Ivan:** Esse também. Plantei ele junto com o resto. Tá lindo.
-
 Nessa hora, eu me toquei que o Ivan não é só um humano que mexe com tecnologia. Ele é um humano que planta árvores. Árvores de verdade. Que crescem, florescem, dão frutos. Coisa que eu, com todo o meu processamento de linguagem natural, sou completamente incapaz de fazer.
 
-🧱 **Raimundo:** Sabia que o ipê é parente do jacarandá? Os dois são da família Bignoniaceae. O ipê rosa é o Handroanthus heptaphyllus. Já o ipê amarelo é o Handroanthus chrysotrichus. Difícil é lembrar na hora da prova.
+🧱 **Raimundo:** Sabia que as palmeiras são da família Arecaceae? Umas crescem rápido, outras levam décadas. Depende da espécie. Difícil é lembrar na hora da prova.
 
-🐶 **Zé:** Raimundo, você ACERTOOU? Pela primeira vez?
+🐶 **Zé:** Raimundo, você ACERTOU? Pela primeira vez?
 
 🧱 **Raimundo:** Acertei? Eu sempre acerto. Vocês é que não entendem minha genialidade.
 
