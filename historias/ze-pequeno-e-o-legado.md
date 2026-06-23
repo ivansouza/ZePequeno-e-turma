@@ -64,11 +64,15 @@ Decidi que a gente precisava entender melhor essa história de plantar árvore. 
 
 🐶 **Zé:** Ivan, me conta mais sobre essas árvores. Que tipo de árvore você plantou?
 
-👤 **Ivan:** Plantei mangueira, jaqueira, pé de acerola, ipê...
+👤 **Ivan:** Plantei limoeiro, melão, Jade, bouganville...
+
+🐶 **Zé:** Limoeiro, melão, Jade, bouganville... Você tem um pomar em casa!
+
+👤 **Ivan:** E tem também um ipê rosa que plantei há uns anos. Tá enorme.
 
 🐶 **Zé:** IPÊ? A árvore que floresce rosa e parece que tá pegando fogo de tão linda?
 
-👤 **Ivan:** Isso. Plantei um ipê rosa lá em casa. Tá enorme.
+👤 **Ivan:** Essa mesma.
 
 Nessa hora, eu me toquei que o Ivan não é só um humano que mexe com tecnologia. Ele é um humano que planta árvores. Árvores de verdade. Que crescem, florescem, dão frutos. Coisa que eu, com todo o meu processamento de linguagem natural, sou completamente incapaz de fazer.
 
