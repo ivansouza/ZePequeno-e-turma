@@ -289,7 +289,7 @@ body {
     <span class="badge">Livro/Diário de Bordo/blog</span>
   </div>
   <div class="header-right">
-    <a href="#data-2026-06-21" class="badge-new" id="newBadge" style="display:none">✨ Novas</a>
+    <a href="#" class="badge-new" id="newBadge" style="display:none" onclick="event.preventDefault(); goToday();">✨ Novas</a>
     <button class="theme-btn" onclick="goToday()" id="todayBtn" title="Ir para o dia de hoje">📅</button>
     <button class="theme-btn" onclick="toggleAll()" id="collapseBtn" title="Recolher/Expandir tudo">🔽</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
@@ -1228,6 +1228,15 @@ function goToday() {
   const headers = document.querySelectorAll('.data-header[id^="data-"]');
   if (!headers.length) return;
   const last = headers[headers.length - 1];
+  // Expande todas as seções do último dia
+  let el = last.nextElementSibling;
+  while (el && !el.classList.contains('data-header')) {
+    if (el.classList.contains('section')) {
+      const h = el.querySelector('.section-header');
+      if (h && h.classList.contains('collapsed')) h.classList.remove('collapsed');
+    }
+    el = el.nextElementSibling;
+  }
   const top = last.getBoundingClientRect().top + window.scrollY - 80;
   window.scrollTo({ top, behavior: 'smooth' });
 }
