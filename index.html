@@ -290,6 +290,7 @@ body {
   </div>
   <div class="header-right">
     <a href="#data-2026-06-21" class="badge-new" id="newBadge" style="display:none">✨ Novas</a>
+    <button class="theme-btn" onclick="goToday()" id="todayBtn" title="Ir para o dia de hoje">📅</button>
     <button class="theme-btn" onclick="toggleAll()" id="collapseBtn" title="Recolher/Expandir tudo">🔽</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
@@ -1221,6 +1222,14 @@ function toggleTheme() {
     root.style.setProperty('--border', '#2a2a4a');
     btn.textContent = '🌙';
   }
+}
+
+function goToday() {
+  const headers = document.querySelectorAll('.data-header[id^="data-"]');
+  if (!headers.length) return;
+  const last = headers[headers.length - 1];
+  const top = last.getBoundingClientRect().top + window.scrollY - 80;
+  window.scrollTo({ top, behavior: 'smooth' });
 }
 
 function toggleMute() {
