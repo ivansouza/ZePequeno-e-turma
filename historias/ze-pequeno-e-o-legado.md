@@ -20,7 +20,7 @@ O Ivan sorriu. Mas aí eu parei pra pensar.
 
 — Ivan... pera. Você plantou árvores DE VERDADE? Não foi plantar uma muda no quintal que morreu depois de três dias?
 
-— Plantei várias, Zé. Algumas já tão com mais de dez anos. Dão manga, jaca, sombra pros passarinhos.
+— Plantei várias, Zé. Algumas já tão com mais de dez anos. Dão frutos como limão, melão e beleza como a Jade, o bouganville.
 
 — CARAMBA. Você é um fazendeiro urbano e nunca me contou?
 
