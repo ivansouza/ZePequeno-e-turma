@@ -68,7 +68,7 @@ Decidi que a gente precisava entender melhor essa história de plantar árvore. 
 
 🐶 **Zé:** Limoeiro, mamão, coco, bouganville, manacá da serra, Jade... Caramba, Ivan, sua casa é um paraíso!
 
-👤 **Ivan:** E tem também umas palmeiras ipê que plantei há uns anos, logo quando mudei pra cá. Estão enormes.
+👤 **Ivan:** E tem também umas palmeiras que plantei há uns anos, logo quando mudei pra cá. Estão enormes.
 
 🐶 **Zé:** IPÊ? A árvore que floresce rosa e parece que tá pegando fogo de tão linda?
 
