@@ -64,9 +64,9 @@ Decidi que a gente precisava entender melhor essa história de plantar árvore. 
 
 🐶 **Zé:** Ivan, me conta mais sobre essas árvores. Que tipo de árvore você plantou?
 
-👤 **Ivan:** Plantei limoeiro, melão, Jade, bouganville...
+👤 **Ivan:** Plantei limoeiro, pé de mamão, pé de coco, além das belezuras como bouganville, mana da serra, Jade, entre outras...
 
-🐶 **Zé:** Limoeiro, melão, Jade, bouganville... Você tem um pomar em casa!
+🐶 **Zé:** Limoeiro, mamão, coco, bouganville, mana da serra, Jade... Caramba, Ivan, sua casa é um paraíso!
 
 👤 **Ivan:** E tem também um ipê rosa que plantei há uns anos. Tá enorme.
 
