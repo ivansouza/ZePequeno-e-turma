@@ -81,7 +81,28 @@ body {
   background: rgba(239,68,68,0.2);
   box-shadow: 0 0 12px rgba(239,68,68,0.3);
 }
-.header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.header-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.font-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+  transition: all 0.2s;
+  line-height: 1;
+}
+.font-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  color: var(--accent);
+}
 .bmc-btn {
   background: #e63946;
   color: #fff;
@@ -183,6 +204,8 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px 16px 40px;
+  font-size: 100%;
+  transition: font-size 0.15s ease;
 }
 .intro {
   text-align: center;
@@ -357,6 +380,7 @@ body {
   .header { padding: 10px 12px; }
   .header-left { gap: 6px; }
   .header-right { gap: 4px; }
+  .font-btn { width: 28px; height: 28px; font-size: 11px; }
   .header h1 { font-size: 16px; }
   .main { padding: 10px 8px 30px; max-width: 100%; }
   .intro { padding: 16px 0 10px; }
@@ -390,6 +414,8 @@ body {
   </div>
   <div class="header-right">
     <a href="#" class="badge-new" id="newBadge" style="display:none" onclick="event.preventDefault(); goToday();">✨ Novas</a>
+    <button class="font-btn" onclick="changeFontSize(-1)" id="fontDownBtn" title="Diminuir fonte">A−</button>
+    <button class="font-btn" onclick="changeFontSize(1)" id="fontUpBtn" title="Aumentar fonte">A+</button>
     <button class="theme-btn" onclick="goToday()" id="todayBtn" title="Ir para o dia de hoje">📅</button>
     <button class="theme-btn" onclick="toggleAll()" id="collapseBtn" title="Recolher/Expandir tudo">🔽</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
@@ -2068,6 +2094,12 @@ body {
 
 
 <script>
+let currentFontSize = 100;
+function changeFontSize(delta) {
+  currentFontSize = Math.max(70, Math.min(150, currentFontSize + delta * 5));
+  document.querySelector('.main').style.fontSize = currentFontSize + '%';
+  document.querySelector('.main').style.lineHeight = (1.5 * 100 / currentFontSize) + 'em';
+}
 function openBMC() {
   document.getElementById('bmcOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
