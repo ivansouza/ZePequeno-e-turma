@@ -590,6 +590,15 @@ body {
   line-height: 1.5;
   word-wrap: break-word;
 }
+.gb-card-resposta {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+  font-size: .82rem;
+  color: var(--green);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
 </style>
 </head>
 <body>
@@ -2689,6 +2698,7 @@ onSnapshot(q, (snapshot) => {
       </div>
       ${d.para ? `<div class="gb-card-para">Para: ${esc(d.para)}</div>` : ""}
       <div class="gb-card-text">${(d.recado || "").split("\n").map(l => esc(l)).join("<br>")}</div>
+      ${d.resposta ? `<div class="gb-card-resposta">${d.resposta.split("\n").map(l => esc(l)).join("<br>")}</div>` : ""}
     </div>`;
   }).join("");
 });
