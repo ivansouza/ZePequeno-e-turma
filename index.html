@@ -82,6 +82,24 @@ body {
   box-shadow: 0 0 12px rgba(239,68,68,0.3);
 }
 .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.bmc-btn {
+  background: #e63946;
+  color: #fff;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 4px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+.bmc-btn:hover {
+  background: #c1121f;
+  box-shadow: 0 0 12px rgba(230,57,70,0.4);
+}
 .theme-btn {
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: 8px; width: 36px; height: 36px;
@@ -303,6 +321,7 @@ body {
     <button class="theme-btn" onclick="goToday()" id="todayBtn" title="Ir para o dia de hoje">📅</button>
     <button class="theme-btn" onclick="toggleAll()" id="collapseBtn" title="Recolher/Expandir tudo">🔽</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <a href="#" class="bmc-btn" onclick="event.preventDefault(); openBMC();">BMC</a>
   </div>
 </header>
 
@@ -1977,6 +1996,50 @@ body {
 
 
 <script>
+function openBMC() {
+  const w = Math.min(500, window.innerWidth - 40);
+  const h = Math.min(600, window.innerHeight - 40);
+  const left = (screen.width - w) / 2;
+  const top = (screen.height - h) / 2;
+  window.open('', 'bmcWindow', `width=${w},height=${h},left=${left},top=${top},scrollbars=yes`);
+  const doc = window.open('', 'bmcWindow').document;
+  doc.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>BMC — Buy Me a Coffee</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Georgia,'Times New Roman',serif;background:#0f0f1a;color:#e8e8f0;padding:30px 24px;text-align:center;line-height:1.7}
+h1{font-size:22px;margin-bottom:8px;color:#f59e0b}
+.sub{font-size:14px;color:#8899bb;margin-bottom:20px}
+.pix{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:18px;margin:16px 0}
+.pix strong{color:#22c55e;font-size:16px;display:block;margin-bottom:6px}
+.pix .chave{font-family:'Courier New',monospace;font-size:15px;color:#f59e0b;word-break:break-all}
+.paypal{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:18px;margin:16px 0}
+.paypal strong{color:#3b82f6;font-size:16px;display:block;margin-bottom:6px}
+.paypal .chave{font-family:'Courier New',monospace;font-size:15px;color:#f59e0b;word-break:break-all}
+.heart{font-size:40px;margin:10px 0}
+.footer{font-size:12px;color:#556;margin-top:20px}
+</style></head><body>
+<h1>☕ BMC — Buy Me a Coffee</h1>
+<p class="sub">Se você se divertiu com o livro, que tal me pagar um café? ☕🐶</p>
+<div class="heart">💛</div>
+<p style="font-size:13px;color:#8899bb;margin-bottom:20px">
+Toda contribuição ajuda a manter o Zé Pequeno e a turma vivos —<br>
+rodando modelos locais, gerando novas histórias, e pagando a conta de luz do servidor.
+</p>
+<div class="pix">
+<strong>📱 Pix</strong>
+<span class="chave">ivansouza@gmail.com</span>
+</div>
+<div class="paypal">
+<strong>🌎 PayPal</strong>
+<span class="chave">ivansouza@gmail.com</span>
+</div>
+<p style="font-size:12px;color:#556;margin-top:10px">
+Obrigado por ler! 🐶💙
+</p>
+<div class="footer">Zé Pequeno e Sua Turma &bull; CC BY-NC-ND 4.0</div>
+</body></html>`);
+  doc.close();
+}
+
 function toggleSection(el) {
   el.classList.toggle('collapsed');
 }
