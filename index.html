@@ -409,6 +409,136 @@ body {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ===== LIVRO DE VISITAS ===== */
+.guestbook-section {
+  max-width: 720px;
+  margin: 2rem auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.guestbook-section .section-header {
+  padding: 14px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+  transition: background .2s;
+}
+.guestbook-section .section-header:hover { background: var(--accent-glow); }
+.guestbook-section .section-icon { font-size: 1.3rem; }
+.guestbook-section .section-title-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex: 1;
+}
+.guestbook-section .section-count {
+  background: var(--accent);
+  color: #0f0f1a;
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.guestbook-section .section-body {
+  padding: 20px;
+  border-top: 1px solid var(--border);
+}
+.guestbook-intro {
+  text-align: center;
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 1.2rem;
+}
+.guestbook-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.guestbook-form input,
+.guestbook-form textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: .9rem;
+  transition: border-color .2s;
+}
+.guestbook-form input:focus,
+.guestbook-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.guestbook-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+.guestbook-form button {
+  background: var(--accent);
+  color: #0f0f1a;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-weight: 700;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: opacity .2s;
+  font-family: inherit;
+}
+.guestbook-form button:hover { opacity: .85; }
+.guestbook-form button:disabled { opacity: .5; cursor: not-allowed; }
+.gb-feedback {
+  font-size: .82rem;
+  text-align: center;
+  min-height: 1.2em;
+}
+.gb-feedback.gb-success { color: var(--green); }
+.gb-feedback.gb-error { color: var(--red); }
+.guestbook-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gb-loading, .gb-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+  padding: 1rem;
+}
+.gb-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+}
+.gb-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.gb-card-name {
+  font-weight: 700;
+  font-size: .85rem;
+  color: var(--accent);
+}
+.gb-card-date {
+  font-size: .72rem;
+  color: var(--muted);
+}
+.gb-card-text {
+  font-size: .85rem;
+  color: var(--ink);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
 </style>
 </head>
 <body>
@@ -425,6 +555,7 @@ body {
     <button class="theme-btn" onclick="goToday()" id="todayBtn" title="Ir para o dia de hoje">📅</button>
     <button class="theme-btn" onclick="toggleAll()" id="collapseBtn" title="Recolher/Expandir tudo">🔽</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <a href="#guestbook" class="bmc-btn" onclick="event.preventDefault(); document.getElementById('guestbook').scrollIntoView({behavior:'smooth'});">📖</a>
     <a href="#" class="bmc-btn" onclick="event.preventDefault(); openBMC();">BMC</a>
   </div>
 </header>
@@ -2429,6 +2560,115 @@ function toggleMute() {
     <div class="footer">Zé Pequeno e Sua Turma &bull; CC BY-NC-ND 4.0</div>
   </div>
 </div>
+
+<!-- ===== LIVRO DE VISITAS ===== -->
+<div class="guestbook-section" id="guestbook">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-icon">📖</span>
+    <span class="section-title-text">Livro de Visitas</span>
+    <span class="section-count" id="guestbook-count">0</span>
+  </div>
+  <div class="section-body">
+    <p class="guestbook-intro">Deixe seu recado para o Zé Pequeno e a turma! 🐶💙</p>
+
+    <form id="guestbook-form" class="guestbook-form">
+      <input type="text" id="gb-nome" placeholder="Seu nome (ou apelido)" maxlength="40" required>
+      <textarea id="gb-recado" placeholder="Seu recado..." maxlength="400" required></textarea>
+      <button type="submit" id="gb-submit">✉️ Enviar recado</button>
+      <p class="gb-feedback" id="gb-feedback"></p>
+    </form>
+
+    <div class="guestbook-list" id="guestbook-list">
+      <div class="gb-loading">Carregando recados...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, limit } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCdstaRIdP6lipbFbi5pJ6avwLgTEU5fhs",
+  authDomain: "meusdvds-ivan.firebaseapp.com",
+  projectId: "meusdvds-ivan",
+  storageBucket: "meusdvds-ivan.firebasestorage.app",
+  messagingSenderId: "952307190101",
+  appId: "1:952307190101:web:4832d72bfd0c6bc96e47dc"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Carregar recados em tempo real
+const q = query(collection(db, "recados"), orderBy("data", "desc"), limit(50));
+onSnapshot(q, (snapshot) => {
+  const list = document.getElementById("guestbook-list");
+  const count = document.getElementById("guestbook-count");
+  const docs = snapshot.docs;
+  count.textContent = docs.length;
+  if (docs.length === 0) {
+    list.innerHTML = '<p class="gb-empty">Nenhum recado ainda. Seja o primeiro! 🐶</p>';
+    return;
+  }
+  list.innerHTML = docs.map(doc => {
+    const d = doc.data();
+    const dataStr = d.data ? new Date(d.data).toLocaleDateString("pt-BR") : "";
+    return `<div class="gb-card">
+      <div class="gb-card-header">
+        <span class="gb-card-name">${escapeHtml(d.nome || "Anônimo")}</span>
+        <span class="gb-card-date">${dataStr}</span>
+      </div>
+      <div class="gb-card-text">${escapeHtml(d.recado || "")}</div>
+    </div>`;
+  }).join("");
+});
+
+// Enviar recado
+document.getElementById("guestbook-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const nome = document.getElementById("gb-nome").value.trim();
+  const recado = document.getElementById("gb-recado").value.trim();
+  const feedback = document.getElementById("gb-feedback");
+  const btn = document.getElementById("gb-submit");
+
+  if (!nome || !recado) {
+    feedback.textContent = "Preencha nome e recado!";
+    feedback.className = "gb-feedback gb-error";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Enviando...";
+  feedback.textContent = "";
+
+  try {
+    await addDoc(collection(db, "recados"), {
+      nome,
+      recado,
+      data: new Date().toISOString()
+    });
+    document.getElementById("gb-nome").value = "";
+    document.getElementById("gb-recado").value = "";
+    feedback.textContent = "Recado enviado! 🐶💙";
+    feedback.className = "gb-feedback gb-success";
+  } catch (err) {
+    console.error(err);
+    feedback.textContent = "Erro ao enviar. Tente de novo!";
+    feedback.className = "gb-feedback gb-error";
+  }
+
+  btn.disabled = false;
+  btn.textContent = "✉️ Enviar recado";
+});
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+</script>
 
 </body>
 </html>
