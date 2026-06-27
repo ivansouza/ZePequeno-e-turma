@@ -87,8 +87,8 @@ body {
   color: #fff;
   border: 2px solid #000;
   border-radius: 8px;
-  padding: 4px 14px;
-  font-size: 13px;
+  padding: 6px 16px;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
   text-decoration: none;
@@ -99,6 +99,9 @@ body {
 .bmc-btn:hover {
   background: #c1121f;
   box-shadow: 0 0 12px rgba(230,57,70,0.4);
+}
+@media (max-width: 640px) {
+  .bmc-btn { padding: 5px 12px; font-size: 12px; }
 }
 .theme-btn {
   background: var(--surface2); border: 1px solid var(--border);
@@ -2016,8 +2019,11 @@ h1{font-size:22px;margin-bottom:8px;color:#f59e0b}
 .paypal .chave{font-family:'Courier New',monospace;font-size:15px;color:#f59e0b;word-break:break-all}
 .heart{font-size:40px;margin:10px 0}
 .footer{font-size:12px;color:#556;margin-top:20px}
+.back-btn{display:inline-block;margin-top:24px;padding:8px 24px;background:#2a2a4a;color:#e8e8f0;border:1px solid #4a4a6a;border-radius:8px;font-size:14px;cursor:pointer;text-decoration:none;transition:all 0.2s}
+.back-btn:hover{background:#3a3a5a}
 </style></head><body>
-<h1>☕ BMC — Buy Me a Coffee</h1>
+<a href="#" class="back-btn" onclick="window.close(); return false;">← Voltar</a>
+<h1 style="margin-top:16px">☕ BMC — Buy Me a Coffee</h1>
 <p class="sub">Se você se divertiu com o livro, que tal me pagar um café? ☕🐶</p>
 <div class="heart">💛</div>
 <p style="font-size:13px;color:#8899bb;margin-bottom:20px">
