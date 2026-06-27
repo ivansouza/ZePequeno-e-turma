@@ -460,6 +460,22 @@ body {
   gap: 10px;
   margin-bottom: 20px;
 }
+.gb-form select {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: .9rem;
+  transition: border-color .2s;
+  cursor: pointer;
+  appearance: auto;
+}
+.gb-form select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
 .gb-form input,
 .gb-form textarea {
   background: var(--bg);
@@ -542,6 +558,12 @@ body {
 .gb-card-date {
   font-size: .7rem;
   color: var(--muted);
+}
+.gb-card-para {
+  font-size: .75rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+  font-weight: 500;
 }
 .gb-card-text {
   font-size: .82rem;
@@ -2580,6 +2602,17 @@ function toggleMute() {
 
     <form class="gb-form" id="gbForm">
       <input type="text" id="gbNome" placeholder="Seu nome (ou apelido)" maxlength="40" required>
+      <select id="gbPara">
+        <option value="">📨 Para quem é o recado?</option>
+        <option value="🐶 Zé Pequeno">🐶 Zé Pequeno</option>
+        <option value="🧱 Raimundo">🧱 Raimundo</option>
+        <option value="🏋️ Tonhão">🏋️ Tonhão</option>
+        <option value="🏋️‍♂️ James">🏋️‍♂️ James</option>
+        <option value="🐦💙 Bibi">🐦💙 Bibi</option>
+        <option value="💊 Zé Droguinha">💊 Zé Droguinha</option>
+        <option value="🤓 Zinho">🤓 Zinho</option>
+        <option value="👥 Para todos">👥 Para todos</option>
+      </select>
       <textarea id="gbRecado" placeholder="Seu recado..." maxlength="400" required></textarea>
       <button type="submit" id="gbBtn">✉️ Enviar recado</button>
       <p class="gb-feedback" id="gbFeedback"></p>
@@ -2634,6 +2667,7 @@ onSnapshot(q, (snapshot) => {
         <span class="gb-card-name">${esc(d.nome || "Anônimo")}</span>
         <span class="gb-card-date">${dataStr}</span>
       </div>
+      ${d.para ? `<div class="gb-card-para">Para: ${esc(d.para)}</div>` : ""}
       <div class="gb-card-text">${esc(d.recado || "")}</div>
     </div>`;
   }).join("");
@@ -2643,6 +2677,7 @@ onSnapshot(q, (snapshot) => {
 document.getElementById("gbForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const nome = document.getElementById("gbNome").value.trim();
+  const para = document.getElementById("gbPara").value;
   const recado = document.getElementById("gbRecado").value.trim();
   const fb = document.getElementById("gbFeedback");
   const btn = document.getElementById("gbBtn");
@@ -2660,10 +2695,12 @@ document.getElementById("gbForm").addEventListener("submit", async (e) => {
   try {
     await addDoc(collection(db, "recados"), {
       nome,
+      para: para || "",
       recado,
       data: new Date().toISOString()
     });
     document.getElementById("gbNome").value = "";
+    document.getElementById("gbPara").value = "";
     document.getElementById("gbRecado").value = "";
     fb.textContent = "Recado enviado! 🐶💙";
     fb.className = "gb-feedback gb-success";
