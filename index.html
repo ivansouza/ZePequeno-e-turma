@@ -2669,7 +2669,7 @@ onSnapshot(q, (snapshot) => {
         <span class="gb-card-date">${dataStr}</span>
       </div>
       ${d.para ? `<div class="gb-card-para">Para: ${esc(d.para)}</div>` : ""}
-      <div class="gb-card-text">${esc(d.recado || "").replace(/\n/g, "<br>")}</div>
+      <div class="gb-card-text">${(d.recado || "").split("\n").map(l => esc(l)).join("<br>")}</div>
     </div>`;
   }).join("");
 });
