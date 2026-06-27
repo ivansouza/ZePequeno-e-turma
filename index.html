@@ -2000,35 +2000,37 @@ body {
 
 <script>
 function openBMC() {
-  const w = Math.min(500, window.innerWidth - 40);
-  const h = Math.min(600, window.innerHeight - 40);
+  const isMobile = window.innerWidth < 640;
+  const w = isMobile ? window.innerWidth : Math.min(500, window.innerWidth - 40);
+  const h = isMobile ? window.innerHeight : Math.min(600, window.innerHeight - 40);
   const left = (screen.width - w) / 2;
   const top = (screen.height - h) / 2;
   window.open('', 'bmcWindow', `width=${w},height=${h},left=${left},top=${top},scrollbars=yes`);
   const doc = window.open('', 'bmcWindow').document;
-  doc.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>BMC — Buy Me a Coffee</title><style>
+  doc.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BMC — Buy Me a Coffee</title><style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Georgia,'Times New Roman',serif;background:#0f0f1a;color:#e8e8f0;padding:30px 24px;text-align:center;line-height:1.7}
-h1{font-size:22px;margin-bottom:8px;color:#f59e0b}
-.sub{font-size:14px;color:#8899bb;margin-bottom:20px}
-.pix{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:18px;margin:16px 0}
-.pix strong{color:#22c55e;font-size:16px;display:block;margin-bottom:6px}
-.pix .chave{font-family:'Courier New',monospace;font-size:15px;color:#f59e0b;word-break:break-all}
-.paypal{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:18px;margin:16px 0}
-.paypal strong{color:#3b82f6;font-size:16px;display:block;margin-bottom:6px}
-.paypal .chave{font-family:'Courier New',monospace;font-size:15px;color:#f59e0b;word-break:break-all}
-.heart{font-size:40px;margin:10px 0}
-.footer{font-size:12px;color:#556;margin-top:20px}
-.back-btn{display:inline-block;margin-top:24px;padding:8px 24px;background:#2a2a4a;color:#e8e8f0;border:1px solid #4a4a6a;border-radius:8px;font-size:14px;cursor:pointer;text-decoration:none;transition:all 0.2s}
+html{font-size:clamp(14px,4vw,18px)}
+body{font-family:Georgia,'Times New Roman',serif;background:#0f0f1a;color:#e8e8f0;padding:clamp(16px,5vw,30px) clamp(14px,4vw,24px);text-align:center;line-height:1.6}
+h1{font-size:clamp(18px,5.5vw,24px);margin-bottom:clamp(6px,2vw,10px);color:#f59e0b}
+.sub{font-size:clamp(12px,3.5vw,15px);color:#8899bb;margin-bottom:clamp(12px,4vw,20px)}
+.pix{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:clamp(12px,4vw,20px);margin:clamp(10px,3vw,16px) 0}
+.pix strong{color:#22c55e;font-size:clamp(13px,4vw,17px);display:block;margin-bottom:clamp(4px,1vw,6px)}
+.pix .chave{font-family:'Courier New',monospace;font-size:clamp(12px,3.5vw,16px);color:#f59e0b;word-break:break-all}
+.paypal{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:clamp(12px,4vw,20px);margin:clamp(10px,3vw,16px) 0}
+.paypal strong{color:#3b82f6;font-size:clamp(13px,4vw,17px);display:block;margin-bottom:clamp(4px,1vw,6px)}
+.paypal .chave{font-family:'Courier New',monospace;font-size:clamp(12px,3.5vw,16px);color:#f59e0b;word-break:break-all}
+.heart{font-size:clamp(28px,8vw,42px);margin:clamp(6px,2vw,12px) 0}
+.footer{font-size:clamp(10px,2.5vw,13px);color:#556;margin-top:clamp(12px,4vw,20px)}
+.back-btn{display:inline-block;margin-top:clamp(14px,4vw,24px);padding:clamp(6px,2vw,10px) clamp(16px,5vw,28px);background:#2a2a4a;color:#e8e8f0;border:1px solid #4a4a6a;border-radius:8px;font-size:clamp(12px,3.5vw,15px);cursor:pointer;text-decoration:none;transition:all 0.2s}
 .back-btn:hover{background:#3a3a5a}
+.desc{font-size:clamp(11px,3vw,14px);color:#8899bb;margin-bottom:clamp(12px,4vw,20px)}
 </style></head><body>
 <a href="#" class="back-btn" onclick="window.close(); return false;">← Voltar</a>
-<h1 style="margin-top:16px">☕ BMC — Buy Me a Coffee</h1>
+<h1 style="margin-top:clamp(10px,3vw,18px)">☕ BMC — Buy Me a Coffee</h1>
 <p class="sub">Se você se divertiu com o livro, que tal me pagar um café? ☕🐶</p>
 <div class="heart">💛</div>
-<p style="font-size:13px;color:#8899bb;margin-bottom:20px">
-Toda contribuição ajuda a manter o Zé Pequeno e a turma vivos —<br>
-rodando modelos locais, gerando novas histórias, e pagando a conta de luz do servidor.
+<p class="desc">
+Toda contribuição ajuda a manter o Zé Pequeno e a turma vivos — rodando modelos locais, gerando novas histórias, e pagando a conta de luz do servidor.
 </p>
 <div class="pix">
 <strong>📱 Pix</strong>
@@ -2038,7 +2040,7 @@ rodando modelos locais, gerando novas histórias, e pagando a conta de luz do se
 <strong>🌎 PayPal</strong>
 <span class="chave">ivansouza@gmail.com</span>
 </div>
-<p style="font-size:12px;color:#556;margin-top:10px">
+<p style="font-size:clamp(10px,2.5vw,13px);color:#556;margin-top:clamp(6px,2vw,12px)">
 Obrigado por ler! 🐶💙
 </p>
 <div class="footer">Zé Pequeno e Sua Turma &bull; CC BY-NC-ND 4.0</div>
