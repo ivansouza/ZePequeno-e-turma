@@ -100,6 +100,75 @@ body {
   background: #c1121f;
   box-shadow: 0 0 12px rgba(230,57,70,0.4);
 }
+
+/* BMC Modal Overlay */
+.bmc-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.bmc-modal {
+  background: #1a1a2e;
+  border: 1px solid #2a2a4a;
+  border-radius: 16px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px 24px;
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.bmc-modal h1 { font-size: 22px; margin-bottom: 8px; color: #f59e0b; }
+.bmc-modal .sub { font-size: 14px; color: #8899bb; margin-bottom: 16px; }
+.bmc-modal .heart { font-size: 40px; margin: 8px 0; }
+.bmc-modal .desc { font-size: 13px; color: #8899bb; margin-bottom: 16px; line-height: 1.6; }
+.bmc-modal .pix-box, .bmc-modal .paypal-box {
+  background: #0f0f1a;
+  border: 1px solid #2a2a4a;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+}
+.bmc-modal .pix-box strong { color: #22c55e; font-size: 15px; display: block; margin-bottom: 6px; }
+.bmc-modal .paypal-box strong { color: #3b82f6; font-size: 15px; display: block; margin-bottom: 6px; }
+.bmc-modal .chave {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #f59e0b;
+  word-break: break-all;
+  user-select: all;
+}
+.bmc-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #8899bb;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+.bmc-close:hover { color: #e8e8f0; }
+.bmc-modal .footer { font-size: 11px; color: #556; margin-top: 16px; }
+@media (max-width: 640px) {
+  .bmc-modal { padding: 20px 16px; }
+  .bmc-modal h1 { font-size: 18px; }
+  .bmc-modal .sub { font-size: 13px; }
+  .bmc-modal .chave { font-size: 13px; }
+}
 @media (max-width: 640px) {
   .bmc-btn { padding: 5px 12px; font-size: 12px; }
 }
@@ -2000,52 +2069,12 @@ body {
 
 <script>
 function openBMC() {
-  const isMobile = window.innerWidth < 640;
-  const w = isMobile ? window.innerWidth : Math.min(500, window.innerWidth - 40);
-  const h = isMobile ? window.innerHeight : Math.min(600, window.innerHeight - 40);
-  const left = (screen.width - w) / 2;
-  const top = (screen.height - h) / 2;
-  window.open('', 'bmcWindow', `width=${w},height=${h},left=${left},top=${top},scrollbars=yes`);
-  const doc = window.open('', 'bmcWindow').document;
-  doc.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BMC — Buy Me a Coffee</title><style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{font-size:clamp(14px,4vw,18px)}
-body{font-family:Georgia,'Times New Roman',serif;background:#0f0f1a;color:#e8e8f0;padding:clamp(16px,5vw,30px) clamp(14px,4vw,24px);text-align:center;line-height:1.6}
-h1{font-size:clamp(18px,5.5vw,24px);margin-bottom:clamp(6px,2vw,10px);color:#f59e0b}
-.sub{font-size:clamp(12px,3.5vw,15px);color:#8899bb;margin-bottom:clamp(12px,4vw,20px)}
-.pix{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:clamp(12px,4vw,20px);margin:clamp(10px,3vw,16px) 0}
-.pix strong{color:#22c55e;font-size:clamp(13px,4vw,17px);display:block;margin-bottom:clamp(4px,1vw,6px)}
-.pix .chave{font-family:'Courier New',monospace;font-size:clamp(12px,3.5vw,16px);color:#f59e0b;word-break:break-all}
-.paypal{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:clamp(12px,4vw,20px);margin:clamp(10px,3vw,16px) 0}
-.paypal strong{color:#3b82f6;font-size:clamp(13px,4vw,17px);display:block;margin-bottom:clamp(4px,1vw,6px)}
-.paypal .chave{font-family:'Courier New',monospace;font-size:clamp(12px,3.5vw,16px);color:#f59e0b;word-break:break-all}
-.heart{font-size:clamp(28px,8vw,42px);margin:clamp(6px,2vw,12px) 0}
-.footer{font-size:clamp(10px,2.5vw,13px);color:#556;margin-top:clamp(12px,4vw,20px)}
-.back-btn{display:inline-block;margin-top:clamp(14px,4vw,24px);padding:clamp(6px,2vw,10px) clamp(16px,5vw,28px);background:#2a2a4a;color:#e8e8f0;border:1px solid #4a4a6a;border-radius:8px;font-size:clamp(12px,3.5vw,15px);cursor:pointer;text-decoration:none;transition:all 0.2s}
-.back-btn:hover{background:#3a3a5a}
-.desc{font-size:clamp(11px,3vw,14px);color:#8899bb;margin-bottom:clamp(12px,4vw,20px)}
-</style></head><body>
-<a href="#" class="back-btn" onclick="window.close(); return false;">← Voltar</a>
-<h1 style="margin-top:clamp(10px,3vw,18px)">☕ BMC — Buy Me a Coffee</h1>
-<p class="sub">Se você se divertiu com o livro, que tal me pagar um café? ☕🐶</p>
-<div class="heart">💛</div>
-<p class="desc">
-Toda contribuição ajuda a manter o Zé Pequeno e a turma vivos — rodando modelos locais, gerando novas histórias, e pagando a conta de luz do servidor.
-</p>
-<div class="pix">
-<strong>📱 Pix</strong>
-<span class="chave">ivansouza@gmail.com</span>
-</div>
-<div class="paypal">
-<strong>🌎 PayPal</strong>
-<span class="chave">ivansouza@gmail.com</span>
-</div>
-<p style="font-size:clamp(10px,2.5vw,13px);color:#556;margin-top:clamp(6px,2vw,12px)">
-Obrigado por ler! 🐶💙
-</p>
-<div class="footer">Zé Pequeno e Sua Turma &bull; CC BY-NC-ND 4.0</div>
-</body></html>`);
-  doc.close();
+  document.getElementById('bmcOverlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeBMC() {
+  document.getElementById('bmcOverlay').style.display = 'none';
+  document.body.style.overflow = '';
 }
 
 function toggleSection(el) {
@@ -2173,6 +2202,30 @@ function toggleMute() {
   openStoryFromHash();
 })();
 </script>
+
+<!-- BMC Modal -->
+<div class="bmc-overlay" id="bmcOverlay" onclick="if(event.target===this)closeBMC()">
+  <div class="bmc-modal">
+    <button class="bmc-close" onclick="closeBMC()">✕</button>
+    <h1>☕ BMC — Buy Me a Coffee</h1>
+    <p class="sub">Se você se divertiu com o livro, que tal me pagar um café? ☕🐶</p>
+    <div class="heart">💛</div>
+    <p class="desc">
+      Toda contribuição ajuda a manter o Zé Pequeno e a turma vivos —<br>
+      rodando modelos locais, gerando novas histórias, e pagando a conta de luz do servidor.
+    </p>
+    <div class="pix-box">
+      <strong>📱 Pix</strong>
+      <div class="chave">ivansouza@gmail.com</div>
+    </div>
+    <div class="paypal-box">
+      <strong>🌎 PayPal</strong>
+      <div class="chave">ivansouza@gmail.com</div>
+    </div>
+    <p style="font-size:12px;color:#556;margin-top:8px">Obrigado por ler! 🐶💙</p>
+    <div class="footer">Zé Pequeno e Sua Turma &bull; CC BY-NC-ND 4.0</div>
+  </div>
+</div>
 
 </body>
 </html>
