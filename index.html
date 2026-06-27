@@ -130,6 +130,25 @@ body {
   box-shadow: 0 0 12px rgba(230,57,70,0.4);
 }
 
+.gb-btn {
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+.gb-btn:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
+
 /* BMC Modal Overlay */
 .bmc-overlay {
   display: none;
@@ -587,7 +606,7 @@ body {
     <button class="theme-btn" onclick="goToday()" id="todayBtn" title="Ir para o dia de hoje">📅</button>
     <button class="theme-btn" onclick="toggleAll()" id="collapseBtn" title="Recolher/Expandir tudo">🔽</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
-    <a href="#" class="bmc-btn" onclick="event.preventDefault(); openGB();">📖</a>
+    <a href="#" class="gb-btn" onclick="event.preventDefault(); openGB();">📖</a>
     <a href="#" class="bmc-btn" onclick="event.preventDefault(); openBMC();">BMC</a>
   </div>
 </header>
