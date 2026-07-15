@@ -449,6 +449,190 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
+/* ===== REACTIONS BAR ===== */
+.reactions-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.react-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+  font-family: inherit;
+  line-height: 1.4;
+}
+.react-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+.react-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+.react-btn .count {
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 12px;
+  text-align: center;
+}
+.react-btn.comment-btn {
+  margin-left: auto;
+}
+
+/* ===== STORY COMMENT MODAL ===== */
+.sc-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.sc-overlay.open { display: flex; }
+.sc-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  position: relative;
+}
+.sc-close {
+  position: absolute;
+  top: 12px; right: 16px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.sc-close:hover { color: var(--ink); }
+.sc-modal h2 {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.sc-modal .sc-sub {
+  color: var(--muted);
+  font-size: .82rem;
+  margin-bottom: 14px;
+}
+.sc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.sc-form input,
+.sc-form textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: .9rem;
+  transition: border-color .2s;
+}
+.sc-form input:focus,
+.sc-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.sc-form textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+.sc-form button {
+  background: var(--accent);
+  color: #0f0f1a;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-weight: 700;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: opacity .2s;
+  font-family: inherit;
+}
+.sc-form button:hover { opacity: .85; }
+.sc-form button:disabled { opacity: .5; cursor: not-allowed; }
+.sc-feedback {
+  font-size: .82rem;
+  text-align: center;
+  min-height: 1.2em;
+}
+.sc-feedback.sc-success { color: var(--green); }
+.sc-feedback.sc-error { color: var(--red); }
+.sc-comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.sc-comments-title {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.sc-loading, .sc-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: .82rem;
+  padding: 1rem;
+}
+.sc-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+.sc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.sc-card-name {
+  font-weight: 700;
+  font-size: .82rem;
+  color: var(--accent);
+}
+.sc-card-date {
+  font-size: .7rem;
+  color: var(--muted);
+}
+.sc-card-text {
+  font-size: .82rem;
+  color: var(--ink);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
 /* ===== LIVRO DE VISITAS (MODAL) ===== */
 .gb-overlay {
   display: none;
@@ -3611,6 +3795,27 @@ function toggleMute() {
   </div>
 </div>
 
+<!-- ===== STORY COMMENT MODAL ===== -->
+<div class="sc-overlay" id="scOverlay" onclick="if(event.target===this)closeSC()">
+  <div class="sc-modal">
+    <button class="sc-close" onclick="closeSC()">✕</button>
+    <h2>💬 Comentários</h2>
+    <p class="sc-sub" id="scStoryTitle"></p>
+
+    <form class="sc-form" id="scForm">
+      <input type="text" id="scNome" placeholder="Seu nome (ou apelido)" maxlength="40" required>
+      <textarea id="scTexto" placeholder="Deixe seu comentário sobre esta história..." maxlength="400" required></textarea>
+      <button type="submit" id="scBtn">💬 Enviar comentário</button>
+      <p class="sc-feedback" id="scFeedback"></p>
+    </form>
+
+    <div class="sc-comments-title">Comentários</div>
+    <div class="sc-comments-list" id="scCommentsList">
+      <div class="sc-loading">Carregando...</div>
+    </div>
+  </div>
+</div>
+
 <!-- ===== LIVRO DE VISITAS MODAL ===== -->
 <div class="gb-overlay" id="gbOverlay" onclick="if(event.target===this)closeGB()">
   <div class="gb-modal">
@@ -3646,7 +3851,7 @@ function toggleMute() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, limit } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, query, orderBy, onSnapshot, limit, getDocs, where, runTransaction } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdstaRIdP6lipbFbi5pJ6avwLgTEU5fhs",
@@ -3739,6 +3944,208 @@ function esc(text) {
   d.textContent = text;
   return d.innerHTML;
 }
+
+// ===== REACTIONS & STORY COMMENTS SYSTEM =====
+const REACT_EMOJIS = ['👍', '❤️', '🤔', '🏆'];
+
+// Inject reactions bar into each story section
+function injectReactions() {
+  document.querySelectorAll('.section[data-story-id]').forEach(section => {
+    const body = section.querySelector('.section-body');
+    const storyId = section.dataset.storyId;
+    if (!body || body.querySelector('.reactions-bar')) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'reactions-bar';
+    bar.dataset.storyId = storyId;
+
+    REACT_EMOJIS.forEach(emoji => {
+      const btn = document.createElement('button');
+      btn.className = 'react-btn';
+      btn.dataset.react = emoji;
+      btn.dataset.storyId = storyId;
+      btn.innerHTML = `${emoji} <span class="count" id="rc-${storyId}-${emoji}">0</span>`;
+      btn.addEventListener('click', () => handleReact(storyId, emoji));
+      bar.appendChild(btn);
+    });
+
+    const commentBtn = document.createElement('button');
+    commentBtn.className = 'react-btn comment-btn';
+    commentBtn.innerHTML = '🗨️ <span class="count" id="rc-${storyId}-comments">0</span>';
+    commentBtn.addEventListener('click', () => openSC(storyId));
+    bar.appendChild(commentBtn);
+
+    body.appendChild(bar);
+  });
+}
+
+// Track which reacts the user has already clicked (per session via localStorage)
+function getReacted() {
+  try { return JSON.parse(localStorage.getItem('ze-reacted')) || {}; }
+  catch { return {}; }
+}
+function setReacted(storyId, emoji) {
+  const r = getReacted();
+  if (!r[storyId]) r[storyId] = [];
+  if (!r[storyId].includes(emoji)) r[storyId].push(emoji);
+  localStorage.setItem('ze-reacted', JSON.stringify(r));
+}
+function hasReacted(storyId, emoji) {
+  const r = getReacted();
+  return r[storyId] && r[storyId].includes(emoji);
+}
+
+// Handle react click
+async function handleReact(storyId, emoji) {
+  if (hasReacted(storyId, emoji)) return;
+
+  const docId = `${storyId}_reacts`;
+  const ref = doc(db, "reacts-comments", docId);
+
+  try {
+    // Use transaction to increment
+    await runTransaction(db, async (transaction) => {
+      const snap = await transaction.get(ref);
+      const current = snap.exists() ? (snap.data()[emoji] || 0) : 0;
+      transaction.set(ref, { [emoji]: current + 1, storyId }, { merge: true });
+    });
+    setReacted(storyId, emoji);
+    // Update local count
+    const el = document.getElementById(`rc-${storyId}-${emoji}`);
+    if (el) el.textContent = parseInt(el.textContent) + 1;
+    // Visual feedback
+    document.querySelectorAll(`.react-btn[data-story-id="${storyId}"][data-react="${emoji}"]`).forEach(b => b.classList.add('active'));
+  } catch (err) {
+    console.error("React error:", err);
+  }
+}
+
+// Load reacts from Firestore
+async function loadReacts() {
+  const q = query(collection(db, "reacts-comments"));
+  const snap = await getDocs(q);
+  snap.forEach(doc => {
+    const data = doc.data();
+    const sid = data.storyId || doc.id.replace('_reacts', '');
+    REACT_EMOJIS.forEach(emoji => {
+      const count = data[emoji] || 0;
+      const el = document.getElementById(`rc-${sid}-${emoji}`);
+      if (el) el.textContent = count;
+    });
+    // Mark active if user already reacted
+    REACT_EMOJIS.forEach(emoji => {
+      if (hasReacted(sid, emoji)) {
+        document.querySelectorAll(`.react-btn[data-story-id="${sid}"][data-react="${emoji}"]`).forEach(b => b.classList.add('active'));
+      }
+    });
+  });
+}
+
+// Load comment counts
+async function loadCommentCounts() {
+  const q = query(collection(db, "story-comments"));
+  const snap = await getDocs(q);
+  const counts = {};
+  snap.forEach(doc => {
+    const sid = doc.data().storyId;
+    if (sid) counts[sid] = (counts[sid] || 0) + 1;
+  });
+  Object.entries(counts).forEach(([sid, count]) => {
+    const el = document.getElementById(`rc-${sid}-comments`);
+    if (el) el.textContent = count;
+  });
+}
+
+// Story Comment Modal
+let currentSCStoryId = null;
+
+window.openSC = function(storyId) {
+  currentSCStoryId = storyId;
+  const title = document.querySelector(`.section[data-story-id="${storyId}"] .title`);
+  document.getElementById('scStoryTitle').textContent = title ? `Sobre: ${title.textContent}` : '';
+  document.getElementById('scOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  loadSCComments(storyId);
+};
+window.closeSC = function() {
+  document.getElementById('scOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  currentSCStoryId = null;
+};
+
+function loadSCComments(storyId) {
+  const list = document.getElementById('scCommentsList');
+  list.innerHTML = '<div class="sc-loading">Carregando...</div>';
+
+  const q = query(collection(db, "story-comments"), where("storyId", "==", storyId), orderBy("data", "desc"), limit(30));
+  onSnapshot(q, (snapshot) => {
+    const docs = snapshot.docs;
+    if (docs.length === 0) {
+      list.innerHTML = '<div class="sc-empty">Nenhum comentário ainda. Seja o primeiro! 🐶</div>';
+      return;
+    }
+    list.innerHTML = docs.map(doc => {
+      const d = doc.data();
+      const dataStr = d.data ? new Date(d.data).toLocaleDateString("pt-BR") : "";
+      return `<div class="sc-card">
+        <div class="sc-card-header">
+          <span class="sc-card-name">${esc(d.nome || "Anônimo")}</span>
+          <span class="sc-card-date">${dataStr}</span>
+        </div>
+        <div class="sc-card-text">${(d.texto || "").split("\n").map(l => esc(l)).join("<br>")}</div>
+      </div>`;
+    }).join("");
+    // Update comment count badge
+    const el = document.getElementById(`rc-${storyId}-comments`);
+    if (el) el.textContent = docs.length;
+  });
+}
+
+// Submit story comment
+document.getElementById("scForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const nome = document.getElementById("scNome").value.trim();
+  const texto = document.getElementById("scTexto").value.trim();
+  const fb = document.getElementById("scFeedback");
+  const btn = document.getElementById("scBtn");
+
+  if (!nome || !texto || !currentSCStoryId) {
+    fb.textContent = "Preencha nome e comentário!";
+    fb.className = "sc-feedback sc-error";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Enviando...";
+  fb.textContent = "";
+
+  try {
+    await addDoc(collection(db, "story-comments"), {
+      storyId: currentSCStoryId,
+      nome,
+      texto,
+      data: new Date().toISOString()
+    });
+    document.getElementById("scNome").value = "";
+    document.getElementById("scTexto").value = "";
+    fb.textContent = "Comentário enviado! 🐶💙";
+    fb.className = "sc-feedback sc-success";
+  } catch (err) {
+    console.error(err);
+    fb.textContent = "Erro ao enviar. Tente de novo!";
+    fb.className = "sc-feedback sc-error";
+  }
+
+  btn.disabled = false;
+  btn.textContent = "💬 Enviar comentário";
+});
+
+// Initialize reactions after Firebase is ready
+setTimeout(() => {
+  injectReactions();
+  loadReacts();
+  loadCommentCounts();
+}, 500);
 </script>
 
 </body></html>
