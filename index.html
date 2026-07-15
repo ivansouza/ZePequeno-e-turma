@@ -3946,7 +3946,12 @@ function esc(text) {
 }
 
 // ===== REACTIONS & STORY COMMENTS SYSTEM =====
-const REACT_EMOJIS = ['👍', '❤️', '🤔', '🏆'];
+const REACT_MAP = [
+  { emoji: '👍', field: 'like' },
+  { emoji: '❤️', field: 'heart' },
+  { emoji: '🤔', field: 'think' },
+  { emoji: '🏆', field: 'trophy' }
+];
 
 // Inject reactions bar into each story section
 function injectReactions() {
@@ -3959,13 +3964,14 @@ function injectReactions() {
     bar.className = 'reactions-bar';
     bar.dataset.storyId = storyId;
 
-    REACT_EMOJIS.forEach(emoji => {
+    REACT_MAP.forEach(r => {
       const btn = document.createElement('button');
       btn.className = 'react-btn';
-      btn.dataset.react = emoji;
+      btn.dataset.react = r.emoji;
+      btn.dataset.field = r.field;
       btn.dataset.storyId = storyId;
-      btn.innerHTML = `${emoji} <span class="count" id="rc-${storyId}-${emoji}">0</span>`;
-      btn.addEventListener('click', () => handleReact(storyId, emoji));
+      btn.innerHTML = `${r.emoji} <span class="count" id="rc-${storyId}-${r.field}">0</span>`;
+      btn.addEventListener('click', () => handleReact(storyId, r.field, r.emoji));
       bar.appendChild(btn);
     });
 
@@ -3996,7 +4002,7 @@ function hasReacted(storyId, emoji) {
 }
 
 // Handle react click
-async function handleReact(storyId, emoji) {
+async function handleReact(storyId, field, emoji) {
   if (hasReacted(storyId, emoji)) return;
 
   const docId = `${storyId}_reacts`;
@@ -4005,15 +4011,15 @@ async function handleReact(storyId, emoji) {
   try {
     // Read current value, increment, write back
     const snap = await getDoc(ref);
-    const current = snap.exists() ? (snap.data()[emoji] || 0) : 0;
+    const current = snap.exists() ? (snap.data()[field] || 0) : 0;
     await setDoc(ref, {
-      [emoji]: current + 1,
+      [field]: current + 1,
       storyId: storyId
     }, { merge: true });
     
     setReacted(storyId, emoji);
     // Update local count
-    const el = document.getElementById(`rc-${storyId}-${emoji}`);
+    const el = document.getElementById(`rc-${storyId}-${field}`);
     if (el) el.textContent = current + 1;
     // Visual feedback
     document.querySelectorAll(`.react-btn[data-story-id="${storyId}"][data-react="${emoji}"]`).forEach(b => b.classList.add('active'));
@@ -4029,15 +4035,15 @@ function loadReacts() {
     snapshot.docs.forEach(doc => {
       const data = doc.data();
       const sid = data.storyId || doc.id.replace('_reacts', '');
-      REACT_EMOJIS.forEach(emoji => {
-        const count = data[emoji] || 0;
-        const el = document.getElementById(`rc-${sid}-${emoji}`);
+      REACT_MAP.forEach(r => {
+        const count = data[r.field] || 0;
+        const el = document.getElementById(`rc-${sid}-${r.field}`);
         if (el) el.textContent = count;
       });
       // Mark active if user already reacted
-      REACT_EMOJIS.forEach(emoji => {
-        if (hasReacted(sid, emoji)) {
-          document.querySelectorAll(`.react-btn[data-story-id="${sid}"][data-react="${emoji}"]`).forEach(b => b.classList.add('active'));
+      REACT_MAP.forEach(r => {
+        if (hasReacted(sid, r.emoji)) {
+          document.querySelectorAll(`.react-btn[data-story-id="${sid}"][data-react="${r.emoji}"]`).forEach(b => b.classList.add('active'));
         }
       });
     });
