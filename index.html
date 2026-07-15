@@ -3851,7 +3851,7 @@ function toggleMute() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, query, orderBy, onSnapshot, limit, getDocs, where, setDoc, increment } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, query, orderBy, onSnapshot, limit, getDocs, where, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdstaRIdP6lipbFbi5pJ6avwLgTEU5fhs",
@@ -4003,16 +4003,18 @@ async function handleReact(storyId, emoji) {
   const ref = doc(db, "reacts-comments", docId);
 
   try {
-    // Use setDoc with increment (atomic, no transaction needed)
+    // Read current value, increment, write back
+    const snap = await getDoc(ref);
+    const current = snap.exists() ? (snap.data()[emoji] || 0) : 0;
     await setDoc(ref, {
-      [emoji]: increment(1),
+      [emoji]: current + 1,
       storyId: storyId
     }, { merge: true });
     
     setReacted(storyId, emoji);
     // Update local count
     const el = document.getElementById(`rc-${storyId}-${emoji}`);
-    if (el) el.textContent = parseInt(el.textContent) + 1;
+    if (el) el.textContent = current + 1;
     // Visual feedback
     document.querySelectorAll(`.react-btn[data-story-id="${storyId}"][data-react="${emoji}"]`).forEach(b => b.classList.add('active'));
   } catch (err) {
@@ -4020,23 +4022,24 @@ async function handleReact(storyId, emoji) {
   }
 }
 
-// Load reacts from Firestore
-async function loadReacts() {
+// Load reacts from Firestore (real-time)
+function loadReacts() {
   const q = query(collection(db, "reacts-comments"));
-  const snap = await getDocs(q);
-  snap.forEach(doc => {
-    const data = doc.data();
-    const sid = data.storyId || doc.id.replace('_reacts', '');
-    REACT_EMOJIS.forEach(emoji => {
-      const count = data[emoji] || 0;
-      const el = document.getElementById(`rc-${sid}-${emoji}`);
-      if (el) el.textContent = count;
-    });
-    // Mark active if user already reacted
-    REACT_EMOJIS.forEach(emoji => {
-      if (hasReacted(sid, emoji)) {
-        document.querySelectorAll(`.react-btn[data-story-id="${sid}"][data-react="${emoji}"]`).forEach(b => b.classList.add('active'));
-      }
+  onSnapshot(q, (snapshot) => {
+    snapshot.docs.forEach(doc => {
+      const data = doc.data();
+      const sid = data.storyId || doc.id.replace('_reacts', '');
+      REACT_EMOJIS.forEach(emoji => {
+        const count = data[emoji] || 0;
+        const el = document.getElementById(`rc-${sid}-${emoji}`);
+        if (el) el.textContent = count;
+      });
+      // Mark active if user already reacted
+      REACT_EMOJIS.forEach(emoji => {
+        if (hasReacted(sid, emoji)) {
+          document.querySelectorAll(`.react-btn[data-story-id="${sid}"][data-react="${emoji}"]`).forEach(b => b.classList.add('active'));
+        }
+      });
     });
   });
 }
@@ -4140,12 +4143,10 @@ document.getElementById("scForm").addEventListener("submit", async (e) => {
   btn.textContent = "💬 Enviar comentário";
 });
 
-// Initialize reactions after Firebase is ready
-setTimeout(() => {
-  injectReactions();
-  loadReacts();
-  loadCommentCounts();
-}, 500);
+// Initialize reactions
+injectReactions();
+loadReacts();
+loadCommentCounts();
 </script>
 
 </body></html>
