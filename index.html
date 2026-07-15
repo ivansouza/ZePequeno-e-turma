@@ -4084,13 +4084,13 @@ window.closeSC = function() {
 
 function loadSCComments(storyId) {
   const list = document.getElementById('scCommentsList');
-  list.innerHTML = '<div class="sc-loading">Carregando...</div>';
+  list.innerHTML = '<div class="sc-empty">Ainda sem nenhum comentário. Deixe o seu! 🐶</div>';
 
   const q = query(collection(db, "story-comments"), where("storyId", "==", storyId), orderBy("data", "desc"), limit(30));
   onSnapshot(q, (snapshot) => {
     const docs = snapshot.docs;
     if (docs.length === 0) {
-      list.innerHTML = '<div class="sc-empty">Ainda sem nenhum comentário. Deixe o seu! 🐶</div>';
+      return;
       return;
     }
     list.innerHTML = docs.map(doc => {
