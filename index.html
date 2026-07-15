@@ -3851,7 +3851,7 @@ function toggleMute() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, query, orderBy, onSnapshot, limit, getDocs, where, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, query, orderBy, onSnapshot, limit, getDocs, where, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdstaRIdP6lipbFbi5pJ6avwLgTEU5fhs",
@@ -4009,18 +4009,24 @@ async function handleReact(storyId, field, emoji) {
   const ref = doc(db, "reacts-comments", docId);
 
   try {
-    // Read current value, increment, write back
-    const snap = await getDoc(ref);
-    const current = snap.exists() ? (snap.data()[field] || 0) : 0;
+    // Use updateDoc with increment (atomic operation)
+    // First try to create the doc if it doesn't exist
     await setDoc(ref, {
-      [field]: current + 1,
-      storyId: storyId
+      storyId: storyId,
+      like: 0,
+      heart: 0,
+      think: 0,
+      trophy: 0
     }, { merge: true });
+    // Then increment the specific field
+    await updateDoc(ref, {
+      [field]: increment(1)
+    });
     
     setReacted(storyId, emoji);
     // Update local count
     const el = document.getElementById(`rc-${storyId}-${field}`);
-    if (el) el.textContent = current + 1;
+    if (el) el.textContent = parseInt(el.textContent) + 1;
     // Visual feedback
     document.querySelectorAll(`.react-btn[data-story-id="${storyId}"][data-react="${emoji}"]`).forEach(b => b.classList.add('active'));
   } catch (err) {
