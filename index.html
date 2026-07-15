@@ -3971,7 +3971,7 @@ function injectReactions() {
 
     const commentBtn = document.createElement('button');
     commentBtn.className = 'react-btn comment-btn';
-    commentBtn.innerHTML = '🗨️ <span class="count" id="rc-${storyId}-comments">0</span>';
+    commentBtn.innerHTML = `🗨️ <span class="count" id="rc-${storyId}-comments">0</span>`;
     commentBtn.addEventListener('click', () => openSC(storyId));
     bar.appendChild(commentBtn);
 
