@@ -4090,7 +4090,7 @@ function loadSCComments(storyId) {
   onSnapshot(q, (snapshot) => {
     const docs = snapshot.docs;
     if (docs.length === 0) {
-      list.innerHTML = '<div class="sc-empty">Nenhum comentário ainda. Seja o primeiro! 🐶</div>';
+      list.innerHTML = '<div class="sc-empty">Ainda sem nenhum comentário. Deixe o seu! 🐶</div>';
       return;
     }
     list.innerHTML = docs.map(doc => {
