@@ -3851,7 +3851,7 @@ function toggleMute() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, query, orderBy, onSnapshot, limit, getDocs, where, runTransaction } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, query, orderBy, onSnapshot, limit, getDocs, where, setDoc, increment } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdstaRIdP6lipbFbi5pJ6avwLgTEU5fhs",
@@ -4003,12 +4003,12 @@ async function handleReact(storyId, emoji) {
   const ref = doc(db, "reacts-comments", docId);
 
   try {
-    // Use transaction to increment
-    await runTransaction(db, async (transaction) => {
-      const snap = await transaction.get(ref);
-      const current = snap.exists() ? (snap.data()[emoji] || 0) : 0;
-      transaction.set(ref, { [emoji]: current + 1, storyId }, { merge: true });
-    });
+    // Use setDoc with increment (atomic, no transaction needed)
+    await setDoc(ref, {
+      [emoji]: increment(1),
+      storyId: storyId
+    }, { merge: true });
+    
     setReacted(storyId, emoji);
     // Update local count
     const el = document.getElementById(`rc-${storyId}-${emoji}`);
