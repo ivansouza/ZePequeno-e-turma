@@ -4139,6 +4139,11 @@ document.getElementById("scForm").addEventListener("submit", async (e) => {
     document.getElementById("scTexto").value = "";
     fb.textContent = "Comentário enviado! 🐶💙";
     fb.className = "sc-feedback sc-success";
+    // Scroll to top of comments list after a moment
+    setTimeout(() => {
+      const list = document.getElementById('scCommentsList');
+      if (list) list.scrollTop = 0;
+    }, 500);
   } catch (err) {
     console.error(err);
     fb.textContent = "Erro ao enviar. Tente de novo!";
