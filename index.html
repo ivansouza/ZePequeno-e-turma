@@ -424,7 +424,9 @@ body {
 @media (max-width: 640px) {
   .header { padding: 10px 12px; }
   .header-left { gap: 6px; }
-  .header-right { gap: 4px; }
+  .header-right { gap: 4px; flex-wrap: wrap; flex-shrink: 1; max-width: 100%; }
+  .theme-btn { width: 30px; height: 30px; font-size: 14px; }
+  .game-btn { display: none; }
   .font-btn { width: 28px; height: 28px; font-size: 11px; }
   .header h1 { font-size: 16px; }
   .main { padding: 10px 8px 30px; max-width: 100%; }
@@ -819,7 +821,7 @@ body {
     <button class="theme-btn" onclick="goToday()" id="todayBtn" title="Ir para o dia de hoje">📅</button>
     <button class="theme-btn" onclick="toggleAll()" id="collapseBtn" title="Recolher/Expandir tudo">🔽</button>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
-    <a href="https://zepequeno-pares.pages.dev" class="theme-btn" target="_blank" rel="noopener" title="Jogar Pares do Zé" style="text-decoration:none">🎮</a>
+    <a href="https://zepequeno-pares.pages.dev" class="theme-btn game-btn" target="_blank" rel="noopener" title="Jogar Pares do Zé" style="text-decoration:none">🎮</a>
     <a href="#" class="gb-btn" onclick="event.preventDefault(); openGB();">📖</a>
     <a href="#" class="bmc-btn" onclick="event.preventDefault(); openBMC();">BMC</a>
   </div>
